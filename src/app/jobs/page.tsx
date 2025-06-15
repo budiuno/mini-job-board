@@ -2,11 +2,11 @@ import { supabase } from "@/lib/supabase/client";
 import JobCard from "@/components/JobCard";
 import Filters from "@/components/Filters";
 
-export default async function JobsPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+interface PageProps {
+  searchParams: { [key: string]: string | string[] | undefined } & Promise<any>;
+}
+
+export default async function JobsPage({ searchParams }: PageProps) {
   const filters = {
     location: Array.isArray(searchParams.location)
       ? searchParams.location[0]

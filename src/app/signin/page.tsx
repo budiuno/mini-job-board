@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { signIn } from "@/lib/supabase/auth";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function SignIn() {
+function SignInForm() {
   const searchParams = useSearchParams();
 
   const [formData, setFormData] = useState({
@@ -233,5 +233,13 @@ export default function SignIn() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignIn() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignInForm />
+    </Suspense>
   );
 }

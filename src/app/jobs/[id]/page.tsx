@@ -5,13 +5,18 @@ import { supabase } from "@/lib/supabase/client";
 import JobCardBox from "@/components/JobCardBox";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { use } from "react"; // Add this import
 
-export default function JobDetailPage({ params }: { params: { id: string } }) {
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export default function JobDetailPage({ params }: PageProps) {
   const [job, setJob] = useState<any>(null);
   const [relatedJobs, setRelatedJobs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const { id } = params;
+  const { id } = use(params);
 
   useEffect(() => {
     const fetchData = async () => {
